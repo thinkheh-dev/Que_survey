@@ -1,0 +1,129 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <title>企业需求调查问卷-企业基本信息</title>
+
+  <!-- Bootstrap -->
+  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/2.0.4/css/bootstrap.min.css"> -->
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="text-center">企业需求调查问卷</h1>
+
+    <!-- 企业基本情况 -->
+      <form class="form-horizontal" action="{% url 'company_basic_info_commit' %}" method="post">
+        {% csrf_token %}
+          <div id="legend" class="">
+            <legend class="text-center">企业基本情况</legend>
+          </div>
+<!--  fields = ("organization_category", "industry_classification", "registered_fund", "annual_revenue", "current_number_of_employees", "college_degree_or_above", 
+                  "intermediate_and_above_titles") -->
+        <div class="form-group">
+              <div class="col-sm-6">
+                <input type="hidden" name="cic_id" value="{{cic_id}}">
+              </div>
+        </div>
+
+        <div class="form-group">
+              <!-- Select Basic -->
+              <label class="col-sm-4 col-sm-4 control-label">组织类别：</label>
+              <div class="col-sm-6">
+                {{ company_basic_info.organization_category }}
+              </div>
+        </div>
+
+        <div class="form-group">
+              <!-- Select Basic -->
+              <label class="col-sm-4 col-sm-4 control-label">组织类别：</label>
+              <div class="col-sm-6">
+                {{ company_basic_info.organization_category }}
+              </div>
+        </div>
+
+        <div class="form-group">
+              <!-- Select Basic -->
+              <label class="col-sm-4 control-label">产业分类：</label>
+              <div class="col-sm-6">
+                {{ company_basic_info.industry_classification }}
+              </div>
+        </div>
+
+
+        <div class="form-group">
+              <!-- Text input-->
+              <label class="col-sm-4 control-label" for="input01">注册资金：</label>
+              <div class="col-sm-6">
+                {{ company_basic_info.registered_fund }}
+                <p class="help-block">单位：万元</p>
+              </div>
+        </div>
+
+        <div class="form-group">
+              <!-- Text input-->
+              <label class="col-sm-4 control-label" for="input01">年营业收入：</label>
+              <div class="col-sm-6">
+                {{ company_basic_info.annual_revenue }}
+                <p class="help-block">单位：万元</p>
+              </div>
+        </div>
+
+        <div class="form-group">
+              <!-- Text input-->
+              <label class="col-sm-4 control-label" for="input01">现有从业人员：</label>
+              <div class="col-sm-6">
+                {{ company_basic_info.current_number_of_employees }}
+                <p class="help-block"></p>
+              </div>
+            </div>
+
+
+
+        <div class="form-group">
+
+              <!-- Text input-->
+              <label class="col-sm-4 control-label" for="input01">大专及以上员工数：</label>
+              <div class="col-sm-6">
+                {{ company_basic_info.college_degree_or_above }}
+                <p class="help-block"></p>
+              </div>
+            </div>
+
+        <div class="form-group">
+
+              <!-- Text input-->
+              <label class="col-sm-4 control-label" for="input01">中级及以上职称员工数：</label>
+              <div class="col-sm-6">
+                {{ company_basic_info.intermediate_and_above_titles }}
+                <p class="help-block"></p>
+              </div>
+            </div>
+
+            <!-- Button -->
+        <hr>
+        <div class="col-sm-12 text-center">
+          <a type="button" class="btn btn-danger" href="">重新填写</a>
+          <!-- <a type="button" class="btn btn-success" href="{% url 'company_info_commit' %}">下一步</a> -->
+          <input type="submit" class="btn btn-success" value="下一步" />
+        </div>
+
+      </form>
+
+  </div>
+
+  <script src="{% static 'js/main.min.js' %}"></script>
+</body>
+</html>

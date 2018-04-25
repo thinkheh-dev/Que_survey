@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>企业需求调查问卷</title>
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+    <h1 class="text-center">{{nearly_que.title}}</h1>
+    <hr>
+
+    <!-- 调查问卷说明 -->
+      <section class="aodfiajsdf">
+        {{nearly_que.questionnaire_explain | safe}}
+        <!-- <h4>问卷调查说明:</h4>
+        <ol>
+          <li><p>为把新《促进法》的学习宣传贯彻工作落到实处，扎实推进全州中小企业的健康发展，促进我州经济社会实现新跨越。根据州工信委安排部署提升红河州中小企业服务平台服务的精神，以便今后能为我州中小企业提供规范、周到的服务。为此，受州工信委中小企业科委托，拟对全州中小企业开展一次需求问卷调研；</p></li>
+          <li><p>调查数据年份为截至2018年底；</p></li>
+          <li><p>除有说明外，其他所有条目皆为单选；</p></li>
+          <li><p>为保证数据的科学性，建议指派具有相应资格的人员填写；</p></li>
+          <li><p>为便于与您沟通联系，请务必完成首页的填表人信息；</p></li>
+          <li><p>此问卷仅针对为全州中小企业服务提供参考依据，无其他商业目的，具体组织单位承诺，将为其承担保密责任；</p></li>
+        </ol> -->
+
+        <hr>
+        <a href="{% url 'company_info' %}" class="btn btn-primary" role="button">填写问卷</a>
+
+      </section>
+
+  </div>
+  <script src="{% static 'js/main.min.js' %}"></script>
+  </body>
+</html>
