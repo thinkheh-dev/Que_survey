@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.urls import reverse
 from .forms import InfoPersonForm, CompanyBasicInfoForm, QuestionsForm, OptionForm
-from .models import Questionnaire, Questions, Option
+from .models import Questionnaire, Questions, Option, Answer, InformationOfPerson, CompanyBasicInfo
 
 def company_info_action(request):
     context = {}
@@ -65,12 +65,26 @@ def enterprise_need_action(request, bif_id):
 
     if request.method == "POST":
         answer_list = []
+        answer = []
         que_list = Questions.objects.filter(questionnaire_id=nearly_que.id).values_list()
+        que_owner = InfoPersonForm.filter(id=CompanyBasicInfoForm.objects.filter(id=bif_id)[0].get('id'))
         for option_name in que_list:
             op_name = "op_name"+str(option_name[0])
             answer = request.POST.getlist(op_name)
+            answer.append(option_name[0])
             answer_list.append(answer)
-        print(answer_list)
+            print(answer_list)
+
+        #     for answer_id_all in answer_list:
+        #         for answer_option_id in answer_id_all:
+        #             answer_store = Answer()
+        #             answer_store.questionnaire_id = nearly_que.id
+        #             answer_store.questions_id = option_name[0]
+        #             answer_store.save()
+        #             answer_store.option.add(answer_option_id)
+        #             answer_store.save()
+        #             print(answer_option_id)
+        # return HttpResponse('成功了！')
 
     return render(request, 'questions_sme_need.html', context)
     

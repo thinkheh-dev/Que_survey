@@ -35,13 +35,13 @@ class Questions_CharAdmin(admin.ModelAdmin):
 
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
-    list_display = ['questionnaire','questions']
+    list_display = ['questionnaire','questions','que_owner']
 
 @admin.register(InformationOfPerson)
 class InformationOfPersonAdmin(admin.ModelAdmin):
-    list_display = ['company_name', 'social_credit_code', 'job_title', 'phone', 'responsible_person', 'sex', 
+    list_display = ['company_name', 'social_credit_code', 'phone', 'responsible_person', 'sex', 
                     'political_status', 'age', 'degree_of_education', 'company_registered_address', 'established_time', 
-                    'website_url', 'email_adress', 'company_profiles', 'questionnaire']
+                    'website_url', 'email_adress', 'company_profiles']
 
 @admin.register(CompanyBasicInfo)
 class CompanyBasicInfoAdmin(admin.ModelAdmin):
