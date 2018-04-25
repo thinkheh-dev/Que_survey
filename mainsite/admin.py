@@ -33,9 +33,9 @@ class OptionAdmin(admin.ModelAdmin):
 class Questions_CharAdmin(admin.ModelAdmin):
     list_display = ['question_char_name', 'question_char_content', 'questionnaire']
 
-# @admin.register(Answer)
-# class AnswerAdmin(admin.ModelAdmin):
-#     list_display = ['questionnaire','questions', 'option']
+@admin.register(Answer)
+class AnswerAdmin(admin.ModelAdmin):
+    list_display = ['questionnaire','questions']
 
 @admin.register(InformationOfPerson)
 class InformationOfPersonAdmin(admin.ModelAdmin):

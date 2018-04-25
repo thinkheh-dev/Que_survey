@@ -6,9 +6,9 @@ from ckeditor_uploader.fields import RichTextUploadingField
 class Questionnaire(models.Model):
     '''问卷表'''
     title = models.CharField(max_length=50, verbose_name="问卷名")
-    author = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name="作者")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="作者")
     questionnaire_explain = RichTextUploadingField(verbose_name="问卷说明")
-    #questions = models.ForeignKey(Questions, on_delete=models.DO_NOTHING, verbose_name="问题外键")
+    #questions = models.ForeignKey(Questions, on_delete=models.CASCADE, verbose_name="问题外键")
     create_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
     last_updated_time = models.DateTimeField(auto_now=True, verbose_name="最后修改的时间")
 
@@ -24,7 +24,7 @@ class Questions(models.Model):
     question_name = models.CharField(max_length=50, verbose_name="问题题目")
     question_visible = models.BooleanField(default=True, verbose_name="题目是否可见")
     multi_select_boolean = models.BooleanField(default=True, verbose_name="题目是否多选")
-    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.DO_NOTHING, verbose_name="对应的问卷")
+    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷")
 
     def __str__(self):
         return "<%s : Questions>" % self.question_name
@@ -37,8 +37,8 @@ class Option(models.Model):
     '''问卷问题选项表'''
     option_content = models.CharField(max_length=50, verbose_name="选项内容")
     option_visible = models.BooleanField(default=True, verbose_name="选项是否可见")
-    questions = models.ForeignKey(Questions, on_delete=models.DO_NOTHING, verbose_name="对应的问题")
-    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.DO_NOTHING, verbose_name="对应的问卷", default=1)
+    questions = models.ForeignKey(Questions, on_delete=models.CASCADE, verbose_name="对应的问题")
+    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷", default=1)
 
     def __str__(self):
         return "<%s : Option>" % self.option_content
@@ -51,7 +51,7 @@ class Questions_Char(models.Model):
     '''填写类问卷问题表'''
     question_char_name = models.CharField(max_length=20,verbose_name="填写类问题标题")
     question_char_content = models.CharField(max_length=500, verbose_name="填写类问题内容")
-    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.DO_NOTHING, verbose_name="对应的问卷")
+    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷")
 
     def __str__(self):
         return "<%s : Questions_Char>" % self.question_char_name
@@ -61,10 +61,10 @@ class Questions_Char(models.Model):
 
 class Answer(models.Model):
     '''问卷回答表'''
-    #user = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name="所属用户")
-    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.DO_NOTHING, verbose_name="对应的问卷", default=1)
-    questions = models.ForeignKey(Questions, on_delete=models.DO_NOTHING, verbose_name="所属问题")
-    option = models.ManyToManyField(Option)
+    #user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="所属用户")
+    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷", default=1)
+    questions = models.ForeignKey(Questions, on_delete=models.CASCADE, verbose_name="所属问题")
+    option = models.ManyToManyField(Option, related_name="answer_option")
     # val = models.IntegerField(null=True, blank=True, verbose_name="数字答案")
     # content = models.CharField(max_length=255, null=True, blank=True, verbose_name="文本答案")
 
@@ -109,7 +109,7 @@ class InformationOfPerson(models.Model):
     email_adress = models.EmailField(blank=False, verbose_name="电子邮件地址")
     #QQ_num = models.CharField(max_length=20, blank=False, verbose_name="QQ号码")
     company_profiles = models.TextField(blank=True, verbose_name="公司介绍")
-    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.DO_NOTHING, verbose_name="所属问卷")
+    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="所属问卷")
 
 
 
@@ -165,7 +165,7 @@ class CompanyBasicInfo(models.Model):
     current_number_of_employees = models.CharField(max_length=5, verbose_name="现从业人数")
     college_degree_or_above = models.CharField(max_length=5, verbose_name="大专及以上学历人数")
     intermediate_and_above_titles = models.CharField(max_length=5, verbose_name="中级及以上职称人数")
-    info_of_company = models.OneToOneField(InformationOfPerson, on_delete=models.DO_NOTHING, verbose_name="归属于哪个企业")
+    info_of_company = models.OneToOneField(InformationOfPerson, on_delete=models.CASCADE, verbose_name="归属于哪个企业")
 
     def __str__(self):
         return "ID为%s的企业的基本情况" % self.id
