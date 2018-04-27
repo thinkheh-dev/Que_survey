@@ -35,7 +35,7 @@ class Questions_CharAdmin(admin.ModelAdmin):
 
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
-    list_display = ['questionnaire','questions','que_owner']
+    list_display = ['questionnaire', 'questions']
 
 @admin.register(InformationOfPerson)
 class InformationOfPersonAdmin(admin.ModelAdmin):

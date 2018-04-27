@@ -1,0 +1,74 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>企业需求调查问卷</title>
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div id="container"></div>
+            </div>
+        </div>
+    </div>
+<!-- 
+    {% for op_haved_count in option_all_statistics %}
+        第{{forloop.counter}}条 <p>{{op_haved_count.option_content}} : {{op_haved_count.option_count}}</p>
+        <p>属于的问题id：{{op_haved_count.questions_id}}</p>
+    {% endfor %} -->
+    
+    <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+    <script src="{% static 'js/main.min.js' %}"></script>
+    <script>
+        // 图表配置
+        var options = {
+            chart: {
+                type: 'column',
+                backgroundColor: null,
+                borderWidth: 1,
+                borderColor: '#e1e1e1',
+            },
+            title: {text: null},
+            xAxis: { 
+                categories: {{ x_name_list | safe }},
+                tickmarkPlacement: 'on',
+                title: { text: '热门选项'},
+             },
+
+            yAxis: {
+                title: { text: null },
+                labels: { enabled:false },
+                gridLineDashStyle: 'Dash',
+            },
+            series: [{                              // 数据列
+                name: '答案统计数',                        // 数据列名
+                data: {{ option_count_data }},                    // 数据
+                
+            }],
+            legend: {enabled:false},
+            credits: {enabled:false},
+            plotOptions: {
+                column: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+        };
+        // 图表初始化函数
+        var chart = Highcharts.chart('container', options);
+    </script>
+</body>
+</html>

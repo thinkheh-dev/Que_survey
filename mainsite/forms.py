@@ -39,7 +39,7 @@ class InfoPersonForm(forms.ModelForm):
 
     established_time = forms.DateField(error_messages={'required':'成立时间不能为空'}, widget=widgets.DateInput(attrs={'class':"form-control",'type':"date"}))
     responsible_person = forms.CharField(error_messages={'required':'负责人不能为空'}, widget=widgets.TextInput(attrs={'class':"form-control"}))
-    job_title = forms.CharField(error_messages={'required':'职务或职称不能为空'}, widget=widgets.TextInput(attrs={'class':"form-control"}))
+    #job_title = forms.CharField(error_messages={'required':'职务或职称不能为空'}, widget=widgets.TextInput(attrs={'class':"form-control"}))
     sex = forms.ChoiceField(error_messages={'required':'性别不能为空'}, choices=SEX_CHOICES,widget=widgets.RadioSelect())
     age = forms.ChoiceField(error_messages={'required':'年龄不能为空'}, choices=AGE_CHOICES,widget=widgets.RadioSelect())
     degree_of_education = forms.ChoiceField(error_messages={'required':'文化程度不能为空'}, choices=EDUCATION_CHOICES,widget=widgets.RadioSelect())
@@ -117,12 +117,3 @@ class CompanyBasicInfoForm(forms.ModelForm):
         model = CompanyBasicInfo
         exclude = ['info_of_company']
 
-class QuestionsForm(forms.ModelForm):
-    class Meta:
-        model = Questions
-        exclude = ['questionnaire']
-
-class OptionForm(forms.ModelForm):
-    class Meta:
-        model = Option
-        exclude = ['questions']

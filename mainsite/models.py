@@ -2,6 +2,63 @@ from django.db import models
 from django.contrib.auth.models import User
 from ckeditor_uploader.fields import RichTextUploadingField
 
+
+
+class Questionnaire(models.Model):
+    '''问卷表'''
+    title = models.CharField(max_length=50, verbose_name="问卷名")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="作者")
+    questionnaire_explain = RichTextUploadingField(verbose_name="问卷说明")
+    create_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
+    last_updated_time = models.DateTimeField(auto_now=True, verbose_name="最后修改的时间")
+
+    def __str__(self):
+        return "<%s : Questionnaire >" % self.title
+
+    class Meta:
+        ordering = ['-create_time',]
+        verbose_name_plural = "问卷管理"
+
+class Questions(models.Model):
+    '''选择题问卷问题表'''
+    question_name = models.CharField(max_length=50, verbose_name="问题题目")
+    question_visible = models.BooleanField(default=True, verbose_name="题目是否可见")
+    multi_select_boolean = models.BooleanField(default=True, verbose_name="题目是否多选")
+    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷")
+
+    def __str__(self):
+        return "<%s : Questions>" % self.question_name
+
+    class Meta:
+        verbose_name_plural = "选择题问题管理"
+        ordering = ['id']
+
+class Option(models.Model):
+    '''问卷问题选项表'''
+    option_content = models.CharField(max_length=50, verbose_name="选项内容")
+    option_visible = models.BooleanField(default=True, verbose_name="选项是否可见")
+    questions = models.ForeignKey(Questions, on_delete=models.CASCADE, verbose_name="对应的问题")
+    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷", default=1)
+
+    def __str__(self):
+        return "<%s : Option>" % self.option_content
+
+    class Meta:
+        verbose_name_plural = "选项管理"
+        ordering = ['id']
+
+class Questions_Char(models.Model):
+    '''填写类问卷问题表'''
+    question_char_name = models.CharField(max_length=20,verbose_name="填写类问题标题")
+    question_char_content = models.CharField(max_length=500, verbose_name="填写类问题内容")
+    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷")
+
+    def __str__(self):
+        return "<%s : Questions_Char>" % self.question_char_name
+
+    class Meta:
+        verbose_name_plural = "填写类问题管理"
+
 class InformationOfPerson(models.Model):
     SEX_CHOICES = (
         (1,"男"),
@@ -37,7 +94,7 @@ class InformationOfPerson(models.Model):
     email_adress = models.EmailField(blank=False, verbose_name="电子邮件地址")
     #QQ_num = models.CharField(max_length=20, blank=False, verbose_name="QQ号码")
     company_profiles = models.TextField(blank=True, verbose_name="公司介绍")
-    # questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="所属问卷")
+    #questionnaire = models.OneToOneField(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷")
 
 
 
@@ -101,71 +158,15 @@ class CompanyBasicInfo(models.Model):
     class Meta:
         verbose_name_plural = "企业基本情况管理"
 
-class Questionnaire(models.Model):
-    '''问卷表'''
-    title = models.CharField(max_length=50, verbose_name="问卷名")
-    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="作者")
-    questionnaire_explain = RichTextUploadingField(verbose_name="问卷说明")
-    create_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
-    last_updated_time = models.DateTimeField(auto_now=True, verbose_name="最后修改的时间")
-
-    def __str__(self):
-        return "<%s : Questionnaire >" % self.title
-
-    class Meta:
-        ordering = ['-create_time',]
-        verbose_name_plural = "问卷管理"
-
-class Questions(models.Model):
-    '''选择题问卷问题表'''
-    question_name = models.CharField(max_length=50, verbose_name="问题题目")
-    question_visible = models.BooleanField(default=True, verbose_name="题目是否可见")
-    multi_select_boolean = models.BooleanField(default=True, verbose_name="题目是否多选")
-    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷")
-
-    def __str__(self):
-        return "<%s : Questions>" % self.question_name
-
-    class Meta:
-        verbose_name_plural = "选择题问题管理"
-        ordering = ['id']
-
-class Option(models.Model):
-    '''问卷问题选项表'''
-    option_content = models.CharField(max_length=50, verbose_name="选项内容")
-    option_visible = models.BooleanField(default=True, verbose_name="选项是否可见")
-    questions = models.ForeignKey(Questions, on_delete=models.CASCADE, verbose_name="对应的问题")
-    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷", default=1)
-
-    def __str__(self):
-        return "<%s : Option>" % self.option_content
-
-    class Meta:
-        verbose_name_plural = "选项管理"
-        ordering = ['id']
-
-class Questions_Char(models.Model):
-    '''填写类问卷问题表'''
-    question_char_name = models.CharField(max_length=20,verbose_name="填写类问题标题")
-    question_char_content = models.CharField(max_length=500, verbose_name="填写类问题内容")
-    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷")
-
-    def __str__(self):
-        return "<%s : Questions_Char>" % self.question_char_name
-
-    class Meta:
-        verbose_name_plural = "填写类问题管理"
-
 class Answer(models.Model):
     '''问卷回答表'''
     questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷", default=1)
     questions = models.ForeignKey(Questions, on_delete=models.CASCADE, verbose_name="所属问题")
-    option = models.ManyToManyField(Option, related_name="answer_option")
-    que_owner = models.ForeignKey(InformationOfPerson, on_delete=models.CASCADE, verbose_name="答案归属人")
+    option = models.ManyToManyField(Option, related_name="answer_option", verbose_name="答案选项")
+    answer_owner = models.ManyToManyField(InformationOfPerson, related_name="answer_owner", verbose_name="答案归属人")
     
-
-    def __str__(self):
-        return self.questions
+    # def __str__(self):
+    #     return self.questions
 
     class Meta:
         verbose_name_plural = "问卷答案表"
