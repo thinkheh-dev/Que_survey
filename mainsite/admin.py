@@ -39,7 +39,7 @@ class AnswerAdmin(admin.ModelAdmin):
 
 @admin.register(InformationOfPerson)
 class InformationOfPersonAdmin(admin.ModelAdmin):
-    list_display = ['company_name', 'social_credit_code', 'phone', 'responsible_person', 'sex', 
+    list_display = ['county_name', 'company_name', 'social_credit_code', 'phone', 'responsible_person', 'sex', 
                     'political_status', 'age', 'degree_of_education', 'company_registered_address', 'established_time', 
                     'website_url', 'email_adress', 'company_profiles']
 

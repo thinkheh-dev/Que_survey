@@ -60,6 +60,22 @@ class Questions_Char(models.Model):
         verbose_name_plural = "填写类问题管理"
 
 class InformationOfPerson(models.Model):
+    
+    COUNTY_CHOICES = (
+        (1,"个旧市"),
+        (2,"开远市"),
+        (3,"蒙自市"),
+        (4,"建水县"),
+        (5,"石屏县"),
+        (6,"弥勒市"),
+        (7,"泸西县"),
+        (8,"红河县"),
+        (9,"元阳县"),
+        (10,"绿春县"),
+        (11,"屏边县"),
+        (12,"金平县"),
+        (13,"河口县"),
+    )
     SEX_CHOICES = (
         (1,"男"),
         (2,"女"),
@@ -78,6 +94,7 @@ class InformationOfPerson(models.Model):
         (5,"本科以上"),
     )
     
+    county_name = models.IntegerField(choices=COUNTY_CHOICES, verbose_name="县份", default=1)
     company_name = models.CharField(max_length=200, blank=False, verbose_name="企业名称")
     social_credit_code = models.CharField(max_length=18, blank=False, verbose_name="社会统一信用代码")
     #signature = models.CharField(max_length=30, blank=False, verbose_name="填表人姓名")

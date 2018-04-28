@@ -111,21 +111,59 @@ def display_data(request):
     option_all_statistics = Option.objects.annotate(option_count=Count('answer_option')).exclude(option_count=0)
     # Option.objects.annotate(option_count=Count('answer_option')).values('option_content','option_count')
 
-    context['option_all_statistics'] = option_all_statistics
+    que_list = Questions.objects.all()
+    que_id_list=list(que_list.values_list('id'))
+    que_name_list = list(que_list.values_list('question_name'))
 
-    x_name_list = []
-    for x_name in list(Option.objects.annotate(option_count=Count('answer_option')).exclude(option_count=0).values_list('option_content')):
-        x_name_list.append(x_name[0])
-    print(x_name_list)
+    option_statistics_all_list = []
 
-    option_count_data = []
+    for_count = 0
 
-    for option_data in list(Option.objects.annotate(option_count=Count('answer_option')).exclude(option_count=0).values_list('option_count')):
-        option_count_data.append(option_data[0])
-    print(option_count_data)
+    for id_list in que_id_list:
+        
+        #这个临时列表定义的语句很重要，用于重置子列表，不可以定义在循环外，否则列表会包含所有内容
+        option_statistics_list = []
 
-    context['x_name_list'] = x_name_list
-    context['option_count_data'] = option_count_data
+        ''' 开始拼装子列表 '''
+        title_name_list = []
+        #迭代取出集合中的问题标题
+        for title_name in que_name_list:
+            #保存到临时的列表中
+            title_name_list.append(title_name[0])
+        #将整个结果保存在一个临时列表中
+        option_statistics_list.append(title_name_list[for_count])
+
+        #获取非0统计的选项内容
+        que_by_title = list(option_all_statistics.filter(questions_id=id_list[0]).values_list('option_content'))
+
+        x_name_list = []
+        #迭代取出集合中的内容文字
+        for x_name in que_by_title:
+            #保存到临时的列表中
+            x_name_list.append(x_name[0])
+        #将整个结果保存在一个临时列表中
+        option_statistics_list.append(x_name_list)
+
+        #获取非0统计的选项内容
+        que_by_count = list(option_all_statistics.filter(questions_id=id_list[0]).values_list('option_count'))
+        option_count_data = []
+        #迭代取出集合中的选项统计数
+        for option_data in que_by_count:
+            #保存到临时的列表中
+            option_count_data.append(option_data[0])
+        #将整个结果保存在一个临时列表中
+        option_statistics_list.append(option_count_data)
+
+        #将最终结果，保存到最终列表中，最终列表的形式 ： [ [[1],[2],[3]], [[1],[2],[3]], ... ]
+        option_statistics_all_list.append(option_statistics_list)
+        #用于获取名称的计数
+        for_count += 1
+
+    print(option_statistics_all_list)
+
+
+    #传递最终结果到数据显示页面
+    context['option_statistics_all_list'] = option_statistics_all_list
     
     return render(request, 'display_data.html', context)
 

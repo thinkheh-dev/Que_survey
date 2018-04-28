@@ -18,11 +18,17 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div id="container"></div>
+            {% for question in option_statistics_all_list %}
+            <div class="col-md-4">
+                <div id="container{{forloop.counter}}"></div>
             </div>
+            {% empty %}
+                    目前还没有任何人作答
+            {% endfor %}
         </div>
     </div>
+
+    
 <!-- 
     {% for op_haved_count in option_all_statistics %}
         第{{forloop.counter}}条 <p>{{op_haved_count.option_content}} : {{op_haved_count.option_count}}</p>
@@ -31,9 +37,11 @@
     
     <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
     <script src="{% static 'js/main.min.js' %}"></script>
+
+    {% for question in option_statistics_all_list %}
     <script>
         // 图表配置
-        var options = {
+        var options{{forloop.counter}} = {
             chart: {
                 type: 'column',
                 backgroundColor: null,
@@ -42,9 +50,9 @@
             },
             title: {text: null},
             xAxis: { 
-                categories: {{ x_name_list | safe }},
+                categories: {{ question.1 | safe }},
                 tickmarkPlacement: 'on',
-                title: { text: '热门选项'},
+                title: { text: '{{ question.0 | safe }}'},
              },
 
             yAxis: {
@@ -54,7 +62,7 @@
             },
             series: [{                              // 数据列
                 name: '答案统计数',                        // 数据列名
-                data: {{ option_count_data }},                    // 数据
+                data: {{ question.2 }},                    // 数据
                 
             }],
             legend: {enabled:false},
@@ -68,7 +76,10 @@
             },
         };
         // 图表初始化函数
-        var chart = Highcharts.chart('container', options);
+        var chart = Highcharts.chart('container{{forloop.counter}}', options{{forloop.counter}});
     </script>
+    {% empty %}
+        
+    {% endfor %}
 </body>
 </html>

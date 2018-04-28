@@ -11,6 +11,22 @@ from .models import InformationOfPerson, CompanyBasicInfo, Questionnaire, Questi
 
 class InfoPersonForm(forms.ModelForm):
 
+    COUNTY_CHOICES = (
+        (1,"个旧市"),
+        (2,"开远市"),
+        (3,"蒙自市"),
+        (4,"建水县"),
+        (5,"石屏县"),
+        (6,"弥勒市"),
+        (7,"泸西县"),
+        (8,"红河县"),
+        (9,"元阳县"),
+        (10,"绿春县"),
+        (11,"屏边县"),
+        (12,"金平县"),
+        (13,"河口县"),
+    )
+
     SEX_CHOICES = (
         (1,"男"),
         (2,"女"),
@@ -31,6 +47,8 @@ class InfoPersonForm(forms.ModelForm):
         (5,"本科以上"),
     )
 
+
+    county_name = forms.ChoiceField(choices=COUNTY_CHOICES,widget=widgets.Select(attrs={'class':"form-control"}))
     company_name = forms.CharField(error_messages={'required':'企业名称不能为空'},
                                     widget = widgets.TextInput(attrs={'placeholder':"请输入企业全称",'class':"form-control"}))
 
