@@ -41,7 +41,7 @@ class AnswerAdmin(admin.ModelAdmin):
 class InformationOfPersonAdmin(admin.ModelAdmin):
     list_display = ['county_name', 'company_name', 'social_credit_code', 'phone', 'responsible_person', 'sex', 
                     'political_status', 'age', 'degree_of_education', 'company_registered_address', 'established_time', 
-                    'website_url', 'email_adress', 'company_profiles']
+                    'website_url', 'email_adress']
 
 @admin.register(CompanyBasicInfo)
 class CompanyBasicInfoAdmin(admin.ModelAdmin):
