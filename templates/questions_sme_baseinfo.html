@@ -29,51 +29,62 @@
       {% csrf_token %}
       <div id="legend" class="">
         <legend class="text-center">企业基本信息</legend>
-      </div>
+      </div>    
 
       <div class="form-group">
         <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.company_name.id_for_label}}">您的公司所在县份：</label>
+        <label class="col-sm-4 control-label" for="{{company_info.county_name.id_for_label}}">{{company_info.county_name.label}}</label>
         <div class="col-sm-7">
           {{ company_info.county_name }}
-          <p class="help-block"></p>
+          <p class="text-danger">{{ company_info.county_name.errors.as_text }}</p>
         </div>
       </div>
       
       <div class="form-group">
         <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.company_name.id_for_label}}">企业名称：</label>
+        <label class="col-sm-4 control-label" for="{{company_info.company_name.id_for_label}}">{{company_info.company_name.label}}</label>
         <div class="col-sm-7">
           {{ company_info.company_name }}
-          <p class="help-block"></p>
+          <p class="text-danger">{{ company_info.company_name.errors.as_text }}</p>
         </div>
       </div>
 
       <div class="form-group">
 
         <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.social_credit_code.id_for_label}}">社会统一信用代码：</label>
+        <label class="col-sm-4 control-label" for="{{company_info.social_credit_code.id_for_label}}">{{company_info.social_credit_code.label}}</label>
         <div class="col-sm-7">
           {{ company_info.social_credit_code }}
-          <p class="help-block">请填写营业执照中18位统一信用代码</p>
+          <p class="help-block">请填写营业执照中18位统一信用代码 <span class="text-danger">{{ company_info.social_credit_code.errors.as_text }}</span></p>
         </div>
       </div>
       <div class="form-group">
 
         <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.established_time.id_for_label}}">成立时间：</label>
+        <label class="col-sm-4 control-label" for="{{company_info.established_time.id_for_label}}">{{company_info.established_time.label}}</label>
         <div class="col-sm-7">
           {{ company_info.established_time }}
-          <p class="help-block">注意填写正确的日期格式：如 2018/01/01</p>
+          <p class="help-block">注意填写正确的日期格式：如 2018/01/01 {{ company_info.established_time.errors.as_text }}</p>
         </div>
       </div>
+
       <div class="form-group">
 
         <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.responsible_person.id_for_label}}">负责人：</label>
+        <label class="col-sm-4 control-label" for="{{company_info.responsible_person.id_for_label}}">{{company_info.responsible_person.label}}</label>
         <div class="col-sm-7">
           {{ company_info.responsible_person }}
-          <p class="help-block"></p>
+          <p class="help-block">{{ company_info.responsible_person.errors.as_text }}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+
+        <!-- Text input-->
+        <label class="col-sm-4 control-label" for="{{company_info.phone.id_for_label}}">{{company_info.phone.label}}</label>
+        <div class="col-sm-7">
+          {{ company_info.phone }}
+          <p class="text-danger">{{ company_info.phone.errors.as_text }}</p>
         </div>
       </div>
 
@@ -115,22 +126,14 @@
       <div class="form-group">
 
         <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.political_status.id_for_label}}">政治面貌：</label>
+        <label class="col-sm-4 control-label" for="{{company_info.political_status.id_for_label}}">{{company_info.political_status.label}}</label>
         <div class="col-sm-7">
           {{ company_info.political_status }}
           <p class="help-block">请输入以下3个中的一个：党员/群众/其他党派</p>
         </div>
       </div>
 
-      <div class="form-group">
-
-        <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.job_title.id_for_label}}">联系电话：</label>
-        <div class="col-sm-7">
-          {{ company_info.phone }}
-          <p class="help-block"></p>
-        </div>
-      </div>
+      
 
       <!-- <div class="form-group"> -->
 
@@ -145,7 +148,7 @@
       <div class="form-group">
 
         <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.company_registered_address.id_for_label}}">公司注册地址：</label>
+        <label class="col-sm-4 control-label" for="{{company_info.company_registered_address.id_for_label}}">{{company_info.company_registered_address.label}}</label>
         <div class="col-sm-7">
           {{ company_info.company_registered_address }}
           <p class="help-block"></p>
@@ -165,7 +168,7 @@
       <div class="form-group">
 
         <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.website_url.id_for_label}}">网址：</label>
+        <label class="col-sm-4 control-label" for="{{ company_info.website_url.id_for_label }}">{{ company_info.website_url.label }}</label>
         <div class="col-sm-7">
           {{ company_info.website_url }}
           <p class="help-block"></p>
@@ -175,7 +178,7 @@
       <div class="form-group">
 
         <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.website_url.id_for_label}}">电子邮箱：</label>
+        <label class="col-sm-4 control-label" for="{{company_info.website_url.id_for_label}}">{{company_info.website_url.label}}</label>
         <div class="col-sm-7">
           {{ company_info.email_adress }}
           <p class="help-block"></p>
@@ -185,7 +188,7 @@
       <div class="form-group">
 
         <!-- Textarea -->
-        <label class="col-sm-4 control-label">企业简介：</label>
+        <label class="col-sm-4 control-label" for="{{ company_info.company_profiles.id_for_label }}">{{ company_info.company_profiles.label }}</label>
         <div class="col-sm-7">
           <div class="textarea">
             {{ company_info.company_profiles }}

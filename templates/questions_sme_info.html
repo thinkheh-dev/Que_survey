@@ -25,26 +25,18 @@
     <h1 class="text-center">企业需求调查问卷</h1>
 
     <!-- 企业基本情况 -->
-      <form class="form-horizontal" action="{% url 'company_basic_info_commit' %}" method="post">
+      <form class="form-horizontal" action="{% url 'company_basic_info_action' cic_id %}" method="post">
         {% csrf_token %}
           <div id="legend" class="">
             <legend class="text-center">企业基本情况</legend>
           </div>
 <!--  fields = ("organization_category", "industry_classification", "registered_fund", "annual_revenue", "current_number_of_employees", "college_degree_or_above", 
                   "intermediate_and_above_titles") -->
-        <div class="form-group">
+<!--         <div class="form-group">
               <div class="col-sm-6">
                 <input type="hidden" name="cic_id" value="{{cic_id}}">
               </div>
-        </div>
-
-        <div class="form-group">
-              <!-- Select Basic -->
-              <label class="col-sm-4 col-sm-4 control-label">组织类别：</label>
-              <div class="col-sm-6">
-                {{ company_basic_info.organization_category }}
-              </div>
-        </div>
+        </div> -->
 
         <div class="form-group">
               <!-- Select Basic -->
@@ -69,6 +61,7 @@
               <div class="col-sm-6">
                 {{ company_basic_info.registered_fund }}
                 <p class="help-block">单位：万元</p>
+                <p class="text-danger">{{ company_basic_info.registered_fund.errors.as_text }}</p>
               </div>
         </div>
 
@@ -78,6 +71,7 @@
               <div class="col-sm-6">
                 {{ company_basic_info.annual_revenue }}
                 <p class="help-block">单位：万元</p>
+                <p class="text-danger">{{ company_basic_info.annual_revenue.errors.as_text }}</p>
               </div>
         </div>
 
@@ -86,7 +80,7 @@
               <label class="col-sm-4 control-label" for="input01">现有从业人员：</label>
               <div class="col-sm-6">
                 {{ company_basic_info.current_number_of_employees }}
-                <p class="help-block"></p>
+                <p class="text-danger">{{ company_basic_info.current_number_of_employees.errors.as_text }}</p>
               </div>
             </div>
 
@@ -98,7 +92,7 @@
               <label class="col-sm-4 control-label" for="input01">大专及以上员工数：</label>
               <div class="col-sm-6">
                 {{ company_basic_info.college_degree_or_above }}
-                <p class="help-block"></p>
+                <p class="text-danger">{{ company_basic_info.college_degree_or_above.errors.as_text }}</p>
               </div>
             </div>
 
@@ -108,7 +102,7 @@
               <label class="col-sm-4 control-label" for="input01">中级及以上职称员工数：</label>
               <div class="col-sm-6">
                 {{ company_basic_info.intermediate_and_above_titles }}
-                <p class="help-block"></p>
+                <p class="text-danger">{{ company_basic_info.intermediate_and_above_titles.errors.as_text }}</p>
               </div>
             </div>
 

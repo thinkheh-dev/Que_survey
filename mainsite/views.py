@@ -20,14 +20,19 @@ def company_info_commit(request):
     nearly_que = Questionnaire.objects.filter(create_time__lt = today).first()
     if request.method == "POST":
         info_form = InfoPersonForm(request.POST)
+        print(info_form.is_valid())
         if info_form.is_valid():
             new_info_form = info_form.save(commit=False)
-            #new_info_form.questionnaire_id = nearly_que.id
+            new_info_form.company_name = info_form.cleaned_data['company_name']
+            new_info_form.social_credit_code = info_form.cleaned_data['social_credit_code']
+            new_info_form.phone = info_form.cleaned_data['phone']
             new_info_form.save()
-
             cic_id = new_info_form.pk
-            print(cic_id)
             return HttpResponseRedirect(reverse('company_basic_info_action', args=[cic_id]))
+        else:
+            context = {}
+            context['company_info'] = info_form
+            return render(request, 'questions_sme_baseinfo.html', context)
 
 @csrf_protect
 def company_basic_info_action(request, cic_id):
@@ -37,20 +42,27 @@ def company_basic_info_action(request, cic_id):
         cic_id = cic_id
         context['cic_id'] = cic_id
         context['company_basic_info'] = company_basic_info
-    return render(request, 'questions_sme_info.html', context)
-
-@csrf_protect
-def company_basic_info_commit(request):
+        return render(request, 'questions_sme_info.html', context)
     if request.method == "POST":
         basic_info_form = CompanyBasicInfoForm(request.POST)
         if basic_info_form.is_valid():
             new_basic_info_form = basic_info_form.save(commit=False)
-            new_basic_info_form.info_of_company_id = request.POST.get('cic_id')
+            new_basic_info_form.info_of_company_id = cic_id
+            new_basic_info_form.registered_fund = basic_info_form.cleaned_data['registered_fund']
+            new_basic_info_form.annual_revenue = basic_info_form.cleaned_data['annual_revenue']
+            new_basic_info_form.current_number_of_employees = basic_info_form.cleaned_data['current_number_of_employees']
+            new_basic_info_form.college_degree_or_above = basic_info_form.cleaned_data['college_degree_or_above']
+            new_basic_info_form.intermediate_and_above_titles = basic_info_form.cleaned_data['intermediate_and_above_titles']
             new_basic_info_form.save()
 
             bif_id = new_basic_info_form.pk
 
             return HttpResponseRedirect(reverse('enterprise_need_action', args=[bif_id]))
+        else:
+            context = {}
+            context['cic_id'] = cic_id
+            context['company_basic_info'] = basic_info_form
+            return render(request, 'questions_sme_info.html', context)
 
 @csrf_protect
 def enterprise_need_action(request, bif_id):
