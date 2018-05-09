@@ -3,211 +3,226 @@
 <html lang="zh-CN">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-  <title>企业需求调查问卷-企业基本信息</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>企业需求调查问卷-企业基本信息</title>
 
-  <!-- Bootstrap -->
-  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/2.0.4/css/bootstrap.min.css"> -->
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
+    <!-- Bootstrap -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/step.css' %}" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/2.0.4/css/bootstrap.min.css"> -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
       <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
 
 <body>
-  <div class="container">
-    <h1 class="text-center">企业需求调查问卷</h1>
 
-    <!-- 企业基本信息： -->
-    <form class="form-horizontal" action="{% url 'company_info_commit' %}" method="post">
-      {% csrf_token %}
-      <div id="legend" class="">
-        <legend class="text-center">企业基本信息</legend>
-      </div>    
+    <div class="container">
+        <h4 class="text-center">《企业需求调查问卷》</h4>
 
-      <div class="form-group">
-        <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.county_name.id_for_label}}">{{company_info.county_name.label}}</label>
-        <div class="col-sm-7">
-          {{ company_info.county_name }}
-          <p class="text-danger">{{ company_info.county_name.errors.as_text }}</p>
-        </div>
-      </div>
-      
-      <div class="form-group">
-        <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.company_name.id_for_label}}">{{company_info.company_name.label}}</label>
-        <div class="col-sm-7">
-          {{ company_info.company_name }}
-          <p class="text-danger">{{ company_info.company_name.errors.as_text }}</p>
-        </div>
-      </div>
+        <!-- 企业基本信息： -->
+        <form class="form-horizontal" action="{% url 'company_info_commit' %}" method="post">
+            {% csrf_token %}
+            <div id="legend" class="">
+                <legend class="text-center"><img src="{% static 'images/SVG/step-1.svg' %}" alt="" class="step text-center"></legend>
+            </div>
 
-      <div class="form-group">
+            <div class="form-group">
+                <!-- Text input-->
+                <label class="col-sm-4 control-label" for="{{company_info.county_name.id_for_label}}">{{company_info.county_name.label}}</label>
+                <div class="col-sm-7">
+                    {{ company_info.county_name }}
+                    <p class="text-danger">{{ company_info.county_name.errors.as_text }}</p>
+                </div>
+            </div>
 
-        <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.social_credit_code.id_for_label}}">{{company_info.social_credit_code.label}}</label>
-        <div class="col-sm-7">
-          {{ company_info.social_credit_code }}
-          <p class="help-block">请填写营业执照中18位统一信用代码 <span class="text-danger">{{ company_info.social_credit_code.errors.as_text }}</span></p>
-        </div>
-      </div>
-      <div class="form-group">
+            <div class="form-group">
+                <!-- Text input-->
+                <label class="col-sm-4 control-label" for="{{company_info.company_name.id_for_label}}">{{company_info.company_name.label}}</label>
+                <div class="col-sm-7">
+                    {{ company_info.company_name }}
+                    <p class="text-danger">{{ company_info.company_name.errors.as_text }}</p>
+                </div>
+            </div>
 
-        <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.established_time.id_for_label}}">{{company_info.established_time.label}}</label>
-        <div class="col-sm-7">
-          {{ company_info.established_time }}
-          <p class="help-block">注意填写正确的日期格式：如 2018/01/01 {{ company_info.established_time.errors.as_text }}</p>
-        </div>
-      </div>
+            <div class="form-group">
 
-      <div class="form-group">
+                <!-- Text input-->
+                <label class="col-sm-4 control-label" for="{{company_info.social_credit_code.id_for_label}}">{{company_info.social_credit_code.label}}</label>
+                <div class="col-sm-7">
+                    {{ company_info.social_credit_code }}
+                    <p class="help-block">请填写营业执照中18位统一信用代码 <span class="text-danger">{{ company_info.social_credit_code.errors.as_text }}</span></p>
+                </div>
+            </div>
+            <div class="form-group">
 
-        <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.responsible_person.id_for_label}}">{{company_info.responsible_person.label}}</label>
-        <div class="col-sm-7">
-          {{ company_info.responsible_person }}
-          <p class="help-block">{{ company_info.responsible_person.errors.as_text }}</p>
-        </div>
-      </div>
+                <!-- Text input-->
+                <label class="col-sm-4 control-label" for="{{company_info.established_time.id_for_label}}">{{company_info.established_time.label}}</label>
+                <div class="col-sm-7">
+                    {{ company_info.established_time }}
+                    <p class="help-block">注意填写正确的日期格式：如 2018/01/01 {{ company_info.established_time.errors.as_text }}</p>
+                </div>
+            </div>
 
-      <div class="form-group">
+            <div class="form-group">
 
-        <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.phone.id_for_label}}">{{company_info.phone.label}}</label>
-        <div class="col-sm-7">
-          {{ company_info.phone }}
-          <p class="text-danger">{{ company_info.phone.errors.as_text }}</p>
-        </div>
-      </div>
+                <!-- Text input-->
+                <label class="col-sm-4 control-label" for="{{company_info.responsible_person.id_for_label}}">{{company_info.responsible_person.label}}</label>
+                <div class="col-sm-7">
+                    {{ company_info.responsible_person }}
+                    <p class="help-block">{{ company_info.responsible_person.errors.as_text }}</p>
+                </div>
+            </div>
 
-      <div class="form-group">
-        <label class="col-sm-4 control-label">{{company_info.sex.label}}</label>
-        <div class="col-sm-7">
-          {% for radio in company_info.sex %}
-              <label class="radio-inline" for="{{ radio.id_for_label }}">
+            <div class="form-group">
+
+                <!-- Text input-->
+                <label class="col-sm-4 control-label" for="{{company_info.phone.id_for_label}}">{{company_info.phone.label}}</label>
+                <div class="col-sm-7">
+                    {{ company_info.phone }}
+                    <p class="text-danger">{{ company_info.phone.errors.as_text }}</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label">性别：</label>
+                <div class="col-sm-7">
+                    {% for radio in company_info.sex %}
+                    <label class="radio-inline" for="{{ radio.id_for_label }}">
                   <span>{{ radio.tag }}</span>{{ radio.choice_label }}
-              </label>
-          {% endfor %}
-        </div>
-      </div>
+              </label> {% endfor %}
+                </div>
+            </div>
 
-      <div class="form-group">
-        <label class="col-sm-4 control-label">{{company_info.age.label}}</label>
-        <div class="col-sm-7">
-          <!-- Inline Radios -->
-          {% for radio in company_info.age %}
-              <label class="radio-inline" for="{{ radio.id_for_label }}">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">年龄：</label>
+                <div class="col-sm-7">
+                    <!-- Inline Radios -->
+                    {% for radio in company_info.age %}
+                    <label class="radio-inline" for="{{ radio.id_for_label }}">
                   <span>{{ radio.tag }}</span>{{ radio.choice_label }}
-              </label>
-          {% endfor %}
-        </div>
-      </div>
+              </label> {% endfor %}
+                </div>
+            </div>
 
-      <div class="form-group">
-        <label class="col-sm-4 control-label">{{company_info.degree_of_education.label}}</label>
-        <div class="col-sm-7">
-          <!-- Inline Radios -->
-          {% for radio in company_info.degree_of_education %}
-              <label class="radio-inline" for="{{ radio.id_for_label }}">
-                  <span>{{ radio.tag }}</span>{{ radio.choice_label }}
-              </label>
-          {% endfor %}
-        </div>
-      </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">文化程度：</label>
+                <div class="col-sm-7">
+                    <!-- Inline Radios -->
+                    {% for radio in company_info.degree_of_education %}
+                      <label class="radio-inline" for="{{ radio.id_for_label }}">
+                        <span>{{ radio.tag }}</span>{{ radio.choice_label }}
+                      </label> 
+                    {% endfor %}
+                </div>
+            </div>
 
-      <div class="form-group">
+            <div class="form-group">
+                <!-- Text input-->
+                <label class="col-sm-4 control-label" for="{{company_info.political_status.id_for_label}}">{{company_info.political_status.label}}</label>
+                <div class="col-sm-7">
+                    {{ company_info.political_status }}
+                    <p class="help-block">请输入以下3个中的一个：党员/群众/其他党派</p>
+                </div>
+            </div>
 
-        <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.political_status.id_for_label}}">{{company_info.political_status.label}}</label>
-        <div class="col-sm-7">
-          {{ company_info.political_status }}
-          <p class="help-block">请输入以下3个中的一个：党员/群众/其他党派</p>
-        </div>
-      </div>
 
-      
 
-      <!-- <div class="form-group"> -->
+            <!-- <div class="form-group"> -->
 
-        <!-- Text input-->
-        <!-- <label class="col-sm-4 control-label" for="input01">传真：</label>
+            <!-- Text input-->
+            <!-- <label class="col-sm-4 control-label" for="input01">传真：</label>
         <div class="col-sm-7">
           <input placeholder="" class="form-control" type="text">
           <p class="help-block"></p>
         </div>
       </div> -->
 
-      <div class="form-group">
+            <div class="form-group">
 
-        <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.company_registered_address.id_for_label}}">{{company_info.company_registered_address.label}}</label>
-        <div class="col-sm-7">
-          {{ company_info.company_registered_address }}
-          <p class="help-block"></p>
-        </div>
-      </div>
+                <!-- Text input-->
+                <label class="col-sm-4 control-label" for="{{company_info.company_registered_address.id_for_label}}">{{company_info.company_registered_address.label}}</label>
+                <div class="col-sm-7">
+                    {{ company_info.company_registered_address }}
+                    <p class="help-block"></p>
+                </div>
+            </div>
 
-      <!-- <div class="form-group"> -->
+            <!-- <div class="form-group"> -->
 
-        <!-- Text input-->
-        <!-- <label class="col-sm-4 control-label" for="input01">邮政编码：</label>
+            <!-- Text input-->
+            <!-- <label class="col-sm-4 control-label" for="input01">邮政编码：</label>
         <div class="col-sm-7">
           <input placeholder="" class="form-control" type="text">
           <p class="help-block"></p>
         </div>
       </div> -->
 
-      <div class="form-group">
+            <div class="form-group">
 
-        <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{ company_info.website_url.id_for_label }}">{{ company_info.website_url.label }}</label>
-        <div class="col-sm-7">
-          {{ company_info.website_url }}
-          <p class="help-block"></p>
+                <!-- Text input-->
+                <label class="col-sm-4 control-label" for="{{ company_info.website_url.id_for_label }}">{{ company_info.website_url.label }}</label>
+                <div class="col-sm-7">
+                    {{ company_info.website_url }}
+                    <p class="help-block"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <!-- Text input-->
+                <label class="col-sm-4 control-label" for="{{company_info.website_url.id_for_label}}">{{company_info.website_url.label}}</label>
+                <div class="col-sm-7">
+                    {{ company_info.email_adress }}
+                    <p class="help-block"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <!-- Textarea -->
+                <label class="col-sm-4 control-label" for="{{ company_info.company_profiles.id_for_label }}">{{ company_info.company_profiles.label }}</label>
+                <div class="col-sm-7">
+                    <div class="textarea">
+                        {{ company_info.company_profiles }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button -->
+            <hr>
+            <div class="col-sm-12 text-center">
+                <a type="button" class="btn btn-danger" href="">重新填写</a>
+                <!-- <a type="button" class="btn btn-success" href="{% url 'company_info_commit' %}">下一步</a> -->
+                <input type="submit" class="btn btn-success" value="下一步" />
+            </div>
+
+        </form>
+    </div>
+
+    <div class="container-fluid row text-center step-footer">
+        <div class="col-md-4 step-inscribed">
+            <p>红河州工信委中小企业科</p>
+            <p>红河州中小企业服务平台</p>
+            <p>&copy;红企家园</p>
         </div>
-      </div>
-
-      <div class="form-group">
-
-        <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.email_adress.id_for_label}}">{{company_info.email_adress.label}}</label>
-        <div class="col-sm-7">
-          {{ company_info.email_adress }}
-          <p class="help-block"></p>
+        <div class="col-md-4 text-center step-help">
+            <p>联系电话</p>
+            <p><span class="step-phone">96158</span></p>
         </div>
-      </div>
-
-      <div class="form-group">
-
-        <!-- Textarea -->
-        <label class="col-sm-4 control-label" for="{{ company_info.company_profiles.id_for_label }}">{{ company_info.company_profiles.label }}</label>
-        <div class="col-sm-7">
-          <div class="textarea">
-            {{ company_info.company_profiles }}
-          </div>
+        <div class="col-md-4 text-center step-weixin">
+            <p>微信公众号</p>
+            <img class="step-weixin-img" src="{% static 'images/平台共众号@2x.png' %}" alt="微信公众号">
         </div>
-      </div>
+    </div>
 
-        <!-- Button -->
-        <hr>
-        <div class="col-sm-12 text-center">
-          <a type="button" class="btn btn-danger" href="">重新填写</a>
-          <!-- <a type="button" class="btn btn-success" href="{% url 'company_info_commit' %}">下一步</a> -->
-          <input type="submit" class="btn btn-success" value="下一步" />
-        </div>
-
-    </form>
-  </div>
-    <br>
-  <script src="{% static 'js/main.min.js' %}"></script>
+    <script src="{% static 'js/main.min.js' %}"></script>
 </body>
 
 </html>

@@ -1,37 +1,38 @@
-
-{% load staticfiles %}
+ {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-  <title>企业需求调查问卷-企业需求</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>企业需求调查问卷-企业需求</title>
 
-  <!-- Bootstrap -->
-  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/2.0.4/css/bootstrap.min.css"> -->
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
+    <!-- Bootstrap -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/step.css' %}" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/2.0.4/css/bootstrap.min.css"> -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
       <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
+
 <body>
     <div class="container">
-      <h1 class="text-center">企业需求调查问卷</h1>
+        <h4 class="text-center">《企业需求调查问卷》</h4>
 
 
-    <form class="form-horizontal" action="" method="POST">
-      {% csrf_token %}
-        <div id="legend" class="">
-          <legend class="text-center">企业服务需求情况</legend>
-        </div>
+        <form class="form-horizontal" action="" method="POST">
+            {% csrf_token %}
+            <div id="legend" class="">
+                <legend class="text-center"><img src="{% static 'images/SVG/step-3.svg' %}" alt="" class="step text-center"></legend>
+            </div>
 
-        {% for question in questions %}
+            {% for question in questions %}
           {% if question.question_visible %}
               {% if question.multi_select_boolean %}
               <div class="form-group">
@@ -69,28 +70,25 @@
     <!-- <a type="button" class="btn btn-success" href="{% url 'company_info_commit' %}">下一步</a> -->
     <input type="submit" class="btn btn-success" value="下一页" />
   </div>
-
-  </form>
-
+</form>
 </div>
-
-  <br>
-<script src="{% static 'js/main.min.js' %}"></script>
-<!-- <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
-<script type="text/javascript">
-    
-    $(document).ready(function(){
-      $("input[name='op_name3']").click(function () {
-
-          if($(this).is(":checked")){
-            alert($(this).val());
-          }else{
-            alert($(this).val() + "取消了");
-          }
-
-      }); 
-    });
-
-</script> -->
+    <div class="container-fluid row text-center step-footer">
+        <div class="col-md-4 step-inscribed">
+            <p>红河州工信委中小企业科</p>
+            <p>红河州中小企业服务平台</p>
+            <p>&copy;红企家园</p>
+        </div>
+        <div class="col-md-4 text-center step-help">
+            <p>联系电话</p>
+            <p><span class="step-phone">96158</span></p>
+        </div>
+        <div class="col-md-4 text-center step-weixin">
+            <p>微信公众号</p>
+            <img class="step-weixin-img" src="{% static 'images/平台共众号@2x.png' %}" alt="微信公众号">
+        </div>
+    </div>
+    <script src="{% static 'js/main.min.js' %}"></script>
+    <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
 </body>
+
 </html>
