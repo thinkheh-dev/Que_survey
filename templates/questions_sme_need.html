@@ -39,7 +39,7 @@
                   <h5><b>{{ question.question_name }}(可多选)</b></h5>
                   {% for option in options %}
                       {% if option.questions_id == question.id %}
-                          <label class="checkbox"><input value="{{option.id}}" name="op_name" type="checkbox"> {{option.option_content}}</label>
+                          <label class="checkbox"><input id="checkbox_id{{option.id}}" check="" value="{{option.id}}" name="op_name{{option.questions_id}}" type="checkbox"> {{option.option_content}}</label>
                       {% endif %}
                   {% endfor %}
                 </div>
@@ -50,7 +50,7 @@
                     <h5><b>{{ question.question_name }}</b></h5>
                     {% for option in options %}
                       {% if option.questions_id == question.id %}
-                          <label class="radio-inline"><input value="{{option.id}}" name="op_name{{option.questions_id}}" type="radio">{{option.option_content}}</label>
+                          <label class="radio-inline"><input id="radio_id{{option.id}}" value="{{option.id}}" name="op_name{{option.questions_id}}" type="radio">{{option.option_content}}</label>
                       {% endif %}
                     {% endfor %}
                   </div>
@@ -60,12 +60,14 @@
         {% empty %}
           目前还没有任何调查表，请等待系统发布！
         {% endfor %}
+          
 
   <!-- Button -->
   <hr>
   <div class="col-sm-12 text-center">
-    <button class="btn btn-danger">重新填写</button>
-    <button type="submit" class="btn btn-success">提交问卷</button>
+    <a type="button" class="btn btn-danger" href="">重新填写</a>
+    <!-- <a type="button" class="btn btn-success" href="{% url 'company_info_commit' %}">下一步</a> -->
+    <input type="submit" class="btn btn-success" value="下一页" />
   </div>
 
   </form>
@@ -74,14 +76,21 @@
 
   <br>
 <script src="{% static 'js/main.min.js' %}"></script>
-<script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+<!-- <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
 <script type="text/javascript">
-  
-  var aaa = $("#op_name").prop("checked");
+    
+    $(document).ready(function(){
+      $("input[name='op_name3']").click(function () {
 
-  if(aaa){
-    alert("选中")
-  };
-</script>
+          if($(this).is(":checked")){
+            alert($(this).val());
+          }else{
+            alert($(this).val() + "取消了");
+          }
+
+      }); 
+    });
+
+</script> -->
 </body>
 </html>

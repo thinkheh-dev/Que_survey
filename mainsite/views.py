@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.db.models import Count
 from django.urls import reverse
-from .forms import InfoPersonForm, CompanyBasicInfoForm
+from .forms import InfoPersonForm, CompanyBasicInfoForm, QuestionsCharForm
 from .models import Questionnaire, Questions, Option, Answer, InformationOfPerson, CompanyBasicInfo
 
 def company_info_action(request):
@@ -75,12 +75,13 @@ def enterprise_need_action(request, bif_id):
         context = {}
         context['questions'] = questions
         context['options'] = options
+        return render(request, 'questions_sme_need.html', context)
 
     if request.method == "POST":
         answer_list = []
         answer = []
         #取得问题列表
-        que_list = Questions.objects.filter(questionnaire_id=nearly_que.id).values_list()
+        que_list = Questions.objects.filter(questionnaire_id=nearly_que.id, question_visible=True).values_list()
         #取得问题所属人的id
         que_owner_id = InformationOfPerson.objects.filter(id=CompanyBasicInfo.objects.filter(id=bif_id).values()[0].get('id')).values()[0].get('id')
         #利用循环获得用户填写的问卷答案列表
@@ -112,9 +113,81 @@ def enterprise_need_action(request, bif_id):
                 answer_store.answer_owner.add(que_owner_id)
                 answer_store.save()
 
+        return HttpResponseRedirect(reverse('enterprise_need_2_action', args=[bif_id]))
+
+
+
+@csrf_protect
+def enterprise_need_2_action(request, bif_id):
+    today = timezone.now()
+    nearly_que = Questionnaire.objects.filter(create_time__lt=today).first()
+    
+    if request.method == "GET":
+        questions = Questions.objects.filter(questionnaire_id=nearly_que.id, question_visible=False)
+        options = Option.objects.filter(questionnaire_id=nearly_que.id)
+
+        question_id = Questions.objects.filter(questionnaire_id=nearly_que.id, next_questions_boolean=True).values()[0].get('id')
+        que_owner_id = InformationOfPerson.objects.filter(id=CompanyBasicInfo.objects.filter(id=bif_id).values()[0].get('id')).values()[0].get('id')
+        answers = Answer.objects.filter(questions_id=question_id).prefetch_related('option').prefetch_related('answer_owner').filter(answer_owner=que_owner_id)
+
+        qcharform = QuestionsCharForm()
+        context = {}
+        context['questions'] = questions
+        context['options'] = options
+        context['answers'] = answers
+        context['qcharform'] = qcharform
+
+        return render(request, 'questions_sme_need2.html', context)
+
+    if request.method == "POST":
+        answer_list = []
+        answer = []
+        #取得问题列表
+        que_list = Questions.objects.filter(questionnaire_id=nearly_que.id).values_list()
+        #取得问题所属人的id
+        que_owner_id = InformationOfPerson.objects.filter(id=CompanyBasicInfo.objects.filter(id=bif_id).values()[0].get('id')).values()[0].get('id')
+               
+        #利用循环获得用户填写的问卷答案列表
+        for option_name in que_list:
+            op_name = "op_name"+str(option_name[0])
+            answer = request.POST.getlist(op_name)
+            #组装列表，包含答案和问题ID
+            answer.append(option_name[0])
+            answer_list.append(answer)
+        print(answer_list)
+
+        #遍历包含答案ID和问题ID的列表
+        for answer_id_all in answer_list:
+            #第一层循环，取得上一列表中的列表元素（又一个列表），并取得列表内元素（列表）的长度
+            answer_len=len(answer_id_all)
+            #第二层循环，将每一个问题的答案，分别存入对应的字段
+            for i in range(0, answer_len-1):
+                #取得单个的列表元素
+                option_id = answer_id_all[i]
+                #实例化Answer模型
+                answer_store = Answer()
+                #先赋值存入Answer表中的ForeignKey
+                answer_store.questionnaire_id = nearly_que.id
+                answer_store.questions_id = answer_id_all[-1]
+                answer_store.save()
+                
+                #写入Answer表中的ManyToMany字段，需要使用add方法
+                answer_store.option.add(option_id)
+                answer_store.answer_owner.add(que_owner_id)
+                answer_store.save()
+
+        qcharform = QuestionsCharForm(request.POST)
+        print(qcharform)
+        if qcharform.is_valid():
+            new_qcharform = qcharform.save(commit=False)
+            new_qcharform.questionnaire_id = nearly_que.id
+            new_qcharform.answer_owner_id = que_owner_id
+            new_qcharform.save()
+
+
         return HttpResponse('成功了！')
 
-    return render(request, 'questions_sme_need.html', context)
+    
 
 
 def display_data(request):

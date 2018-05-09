@@ -89,7 +89,7 @@
       </div>
 
       <div class="form-group">
-        <label class="col-sm-4 control-label">性别：</label>
+        <label class="col-sm-4 control-label">{{company_info.sex.label}}</label>
         <div class="col-sm-7">
           {% for radio in company_info.sex %}
               <label class="radio-inline" for="{{ radio.id_for_label }}">
@@ -100,7 +100,7 @@
       </div>
 
       <div class="form-group">
-        <label class="col-sm-4 control-label">年龄：</label>
+        <label class="col-sm-4 control-label">{{company_info.age.label}}</label>
         <div class="col-sm-7">
           <!-- Inline Radios -->
           {% for radio in company_info.age %}
@@ -112,7 +112,7 @@
       </div>
 
       <div class="form-group">
-        <label class="col-sm-4 control-label">文化程度：</label>
+        <label class="col-sm-4 control-label">{{company_info.degree_of_education.label}}</label>
         <div class="col-sm-7">
           <!-- Inline Radios -->
           {% for radio in company_info.degree_of_education %}
@@ -178,7 +178,7 @@
       <div class="form-group">
 
         <!-- Text input-->
-        <label class="col-sm-4 control-label" for="{{company_info.website_url.id_for_label}}">{{company_info.website_url.label}}</label>
+        <label class="col-sm-4 control-label" for="{{company_info.email_adress.id_for_label}}">{{company_info.email_adress.label}}</label>
         <div class="col-sm-7">
           {{ company_info.email_adress }}
           <p class="help-block"></p>

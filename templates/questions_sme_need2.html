@@ -1,0 +1,117 @@
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <title>企业需求调查问卷-企业需求</title>
+
+  <!-- Bootstrap -->
+  <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/2.0.4/css/bootstrap.min.css"> -->
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="container">
+      <h1 class="text-center">企业需求调查问卷</h1>
+
+
+    <form class="form-horizontal" action="" method="POST">
+      {% csrf_token %}
+        <div id="legend" class="">
+          <legend class="text-center">企业服务需求情况</legend>
+        </div>
+
+        {% for answer in answers %}
+            {% for option in answer.option.all %}
+                {% for question in questions %}
+                  {% if question.option_id_for_quetion == option.id %}
+
+                      {% if question.question_visible %}
+
+                      {% else %}
+                          
+                        {% if question.multi_select_boolean%}
+                          <div class="form-group">
+                            <div class="checkbox col-sm-12">
+                              <h5><b>{{ question.question_name }}(可多选)</b></h5>
+                              {% for option in options %}
+                                  {% if option.questions_id == question.id %}
+                                      <label class="checkbox"><input id="checkbox_id{{option.id}}" check="" value="{{option.id}}" name="op_name{{option.questions_id}}" type="checkbox"> {{option.option_content}}</label>
+                                  {% endif %}
+                              {% endfor %}
+                            </div>
+                          </div>
+                        {% else %}
+                            <div class="form-group">
+                              <div class="checkbox col-sm-12">
+                                <h5><b>{{ question.question_name }}</b></h5>
+                                {% for option in options %}
+                                  {% if option.questions_id == question.id %}
+                                      <label class="radio-inline"><input id="radio_id{{option.id}}" value="{{option.id}}" name="op_name{{option.questions_id}}" type="radio">{{option.option_content}}</label>
+                                  {% endif %}
+                                {% endfor %}
+                              </div>
+                            </div>
+                        {% endif %}
+                      {% endif %}
+                  {% endif %}
+                {% empty %}
+                  目前还没有任何调查表，请等待系统发布！
+                {% endfor %}
+            {% endfor %}
+        {% empty %}
+            
+        {% endfor %}
+
+        <!-- {# 隐藏的内容 #} -->
+        <div class="form-group">
+        <!-- Textarea -->
+            <label class="col-sm-4 control-label" for="{{ qcharform.question_char_content.id_for_label }}">{{ qcharform.question_char_content.label }}</label>
+                <div class="col-sm-7">
+                  <div class="textarea">
+                    {{ qcharform.question_char_content }}
+                  </div>
+                </div>
+        </div>
+          
+  <!-- Button -->
+  <hr>
+  <div class="col-sm-12 text-center">
+    <a type="button" class="btn btn-danger" href="">重新填写</a>
+    <input type="submit" class="btn btn-success" value="提交问卷" />
+  </div>
+
+  </form>
+
+</div>
+
+  <br>
+<script src="{% static 'js/main.min.js' %}"></script>
+<!-- <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+      $("input[name='op_name3']").click(function () {
+
+          if($(this).is(":checked")){
+            alert($(this).val());
+          }else{
+            alert($(this).val() + "取消了");
+          }
+
+      }); 
+    });
+
+</script> -->
+</body>
+</html>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from mainsite.models import Questionnaire, Questions, Option, Answer, InformationOfPerson, Questions_Char, CompanyBasicInfo
+from mainsite.models import Questionnaire, Questions, Option, Answer, InformationOfPerson, CompanyBasicInfo
 
 class ChoiceQuestionInline(admin.TabularInline):
     model = Questions
@@ -19,7 +19,7 @@ class QuestionnaireAdmin(admin.ModelAdmin):
 
 @admin.register(Questions)
 class QuestionsAdmin(admin.ModelAdmin):
-    list_display = ['question_name', 'question_visible', 'multi_select_boolean', 'questionnaire']
+    list_display = ['id','question_name', 'question_visible', 'multi_select_boolean', 'next_questions_boolean', 'questionnaire']
     ordering = ['id', ]
 
     #自定义管理界面--可以管理问题对应的选项
@@ -29,9 +29,9 @@ class QuestionsAdmin(admin.ModelAdmin):
 class OptionAdmin(admin.ModelAdmin):
     list_display = ['option_content', 'option_visible', 'questions']
     
-@admin.register(Questions_Char)
-class Questions_CharAdmin(admin.ModelAdmin):
-    list_display = ['question_char_name', 'question_char_content', 'questionnaire']
+# @admin.register(QuestionsChar)
+# class QuestionsCharAdmin(admin.ModelAdmin):
+#     list_display = ['question_char_name', 'question_char_content', 'questionnaire']
 
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):

@@ -8,7 +8,7 @@ from django import forms
 import re
 from django.forms import widgets
 from django.forms import fields
-from .models import InformationOfPerson, CompanyBasicInfo, Questionnaire, Questions, Questions_Char, Option
+from .models import InformationOfPerson, CompanyBasicInfo, Questionnaire, Questions, Option, AnswerText
 
 class InfoPersonForm(forms.ModelForm):
 
@@ -233,3 +233,11 @@ class CompanyBasicInfoForm(forms.ModelForm):
             self.cleaned_data['intermediate_and_above_titles'] = intermediate_and_above_titles_zh
 
         return intermediate_and_above_titles
+
+class QuestionsCharForm(forms.ModelForm):
+    # 使用ModelForm时的内部类
+
+    question_char_content = forms.CharField(label="您的企业还有哪些好的建议和补充", widget=forms.Textarea(attrs={'class':"form-control",'rows':"3"}))
+    class Meta:
+        model = AnswerText
+        exclude = ['questionnaire', 'answer_owner']

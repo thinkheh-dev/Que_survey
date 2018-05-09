@@ -25,9 +25,11 @@ class Questions(models.Model):
     question_visible = models.BooleanField(default=True, verbose_name="题目是否可见")
     multi_select_boolean = models.BooleanField(default=True, verbose_name="题目是否多选")
     questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷")
+    next_questions_boolean = models.BooleanField(default=False, verbose_name="是否有下一级题目")
+    option_id_for_quetion = models.IntegerField(default=0, verbose_name="上一级题目option的id")
 
     def __str__(self):
-        return "<%s : Questions>" % self.question_name
+        return "<%s %s: Questions>" % (self.question_name, self.id)
 
     class Meta:
         verbose_name_plural = "选择题问题管理"
@@ -41,23 +43,23 @@ class Option(models.Model):
     questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷", default=1)
 
     def __str__(self):
-        return "<%s : Option>" % self.option_content
+        return "<%s %s: Option>" % (self.option_content, self.id)
 
     class Meta:
         verbose_name_plural = "选项管理"
         ordering = ['id']
 
-class Questions_Char(models.Model):
-    '''填写类问卷问题表'''
-    question_char_name = models.CharField(max_length=20,verbose_name="填写类问题标题")
-    question_char_content = models.CharField(max_length=500, verbose_name="填写类问题内容")
-    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷")
+# class QuestionsChar(models.Model):
+#     '''填写类问卷问题表'''
+#     question_char_name = models.CharField(max_length=20,verbose_name="填写类问题标题")
+#     question_char_content = models.CharField(blank=True, max_length=500, verbose_name="填写类问题内容")
+#     questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷")
 
-    def __str__(self):
-        return "<%s : Questions_Char>" % self.question_char_name
+#     def __str__(self):
+#         return "<%s : Questions_Char>" % self.question_char_name
 
-    class Meta:
-        verbose_name_plural = "填写类问题管理"
+#     class Meta:
+#         verbose_name_plural = "填写类问题管理"
 
 class InformationOfPerson(models.Model):
     
@@ -176,7 +178,7 @@ class CompanyBasicInfo(models.Model):
         verbose_name_plural = "企业基本情况管理"
 
 class Answer(models.Model):
-    '''问卷回答表'''
+    '''选项类问卷答案表'''
     questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷", default=1)
     questions = models.ForeignKey(Questions, on_delete=models.CASCADE, verbose_name="所属问题")
     option = models.ManyToManyField(Option, related_name="answer_option", verbose_name="答案选项")
@@ -187,3 +189,9 @@ class Answer(models.Model):
 
     class Meta:
         verbose_name_plural = "问卷答案表"
+
+class AnswerText(models.Model):
+    '''文字类问卷答案表'''
+    questionnaire = models.ForeignKey(Questionnaire, on_delete=models.CASCADE, verbose_name="对应的问卷", default=1)
+    question_char_content = models.CharField(blank=True, max_length=500, verbose_name="填写类问题答案")
+    answer_owner = models.ForeignKey(InformationOfPerson, on_delete=models.CASCADE, verbose_name="答案归属人")

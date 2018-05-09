@@ -13,5 +13,6 @@ urlpatterns = [
     path('company-info-commit/', views.company_info_commit, name="company_info_commit" ),
     path('company-basic-info-action/<int:cic_id>', views.company_basic_info_action, name="company_basic_info_action"),
     path('que-form-action/<int:bif_id>', views.enterprise_need_action, name="enterprise_need_action"),
+    path('que-form2-action/<int:bif_id>', views.enterprise_need_2_action, name="enterprise_need_2_action"),
     path('display-data/', views.display_data, name="display_data"),
 ]
