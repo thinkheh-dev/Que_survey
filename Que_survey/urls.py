@@ -21,10 +21,10 @@ from . import views
 
 urlpatterns = [
 
-    path('', views.index, name="home"),
-    path('admin/', admin.site.urls),
+    path('qsu/', views.index, name="home"),
+    path('qsu/admin/', admin.site.urls),
     path('ckeditor', include('ckeditor_uploader.urls')),
-    path('que/', include('mainsite.urls')),
+    path('qsu/que/', include('mainsite.urls')),
    
 
 ]
