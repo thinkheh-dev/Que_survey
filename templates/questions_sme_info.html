@@ -41,7 +41,7 @@
 
             <div class="form-group">
                 <!-- Select Basic -->
-                <label class="col-sm-4 col-sm-4 control-label">组织类别：</label>
+                <label class="col-sm-4 col-sm-4 control-label">组织类别*</label>
                 <div class="col-sm-6">
                     {{ company_basic_info.organization_category }}
                 </div>
@@ -49,7 +49,7 @@
 
             <div class="form-group">
                 <!-- Select Basic -->
-                <label class="col-sm-4 control-label">产业分类：</label>
+                <label class="col-sm-4 control-label">产业分类*</label>
                 <div class="col-sm-6">
                     {{ company_basic_info.industry_classification }}
                 </div>
@@ -58,7 +58,7 @@
 
             <div class="form-group">
                 <!-- Text input-->
-                <label class="col-sm-4 control-label" for="input01">注册资金：</label>
+                <label class="col-sm-4 control-label" for="input01">注册资金*</label>
                 <div class="col-sm-6">
                     {{ company_basic_info.registered_fund }}
                     <p class="help-block">单位：万元</p>
@@ -68,7 +68,7 @@
 
             <div class="form-group">
                 <!-- Text input-->
-                <label class="col-sm-4 control-label" for="input01">年营业收入：</label>
+                <label class="col-sm-4 control-label" for="input01">年营业收入*</label>
                 <div class="col-sm-6">
                     {{ company_basic_info.annual_revenue }}
                     <p class="help-block">单位：万元</p>
@@ -78,7 +78,7 @@
 
             <div class="form-group">
                 <!-- Text input-->
-                <label class="col-sm-4 control-label" for="input01">现有从业人员：</label>
+                <label class="col-sm-4 control-label" for="input01">现有从业人员*</label>
                 <div class="col-sm-6">
                     {{ company_basic_info.current_number_of_employees }}
                     <p class="text-danger">{{ company_basic_info.current_number_of_employees.errors.as_text }}</p>
@@ -90,7 +90,7 @@
             <div class="form-group">
 
                 <!-- Text input-->
-                <label class="col-sm-4 control-label" for="input01">大专及以上员工数：</label>
+                <label class="col-sm-4 control-label" for="input01">大专及以上员工数*</label>
                 <div class="col-sm-6">
                     {{ company_basic_info.college_degree_or_above }}
                     <p class="text-danger">{{ company_basic_info.college_degree_or_above.errors.as_text }}</p>
@@ -100,7 +100,7 @@
             <div class="form-group">
 
                 <!-- Text input-->
-                <label class="col-sm-4 control-label" for="input01">中级及以上职称员工数：</label>
+                <label class="col-sm-4 control-label" for="input01">中级及以上职称员工数*</label>
                 <div class="col-sm-6">
                     {{ company_basic_info.intermediate_and_above_titles }}
                     <p class="text-danger">{{ company_basic_info.intermediate_and_above_titles.errors.as_text }}</p>

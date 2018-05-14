@@ -32,10 +32,14 @@
             <div id="legend" class="">
                 <legend class="text-center"><img src="{% static 'images/SVG/step-1.svg' %}" alt="" class="step text-center"></legend>
             </div>
+	    
+	    <div class="from-group">
+	        <div class="alert alert-warning text-center" role="alert"><strong>注意：</strong>带 <strong>*</strong> 的为必选项</div>
+            </div>
 
             <div class="form-group">
                 <!-- Text input-->
-                <label class="col-sm-4 control-label" for="{{company_info.county_name.id_for_label}}">{{company_info.county_name.label}}</label>
+                <label class="col-sm-4 control-label" for="{{company_info.county_name.id_for_label}}">{{company_info.county_name.label}}*</label>
                 <div class="col-sm-7">
                     {{ company_info.county_name }}
                     <p class="text-danger">{{ company_info.county_name.errors.as_text }}</p>
@@ -44,7 +48,7 @@
 
             <div class="form-group">
                 <!-- Text input-->
-                <label class="col-sm-4 control-label" for="{{company_info.company_name.id_for_label}}">{{company_info.company_name.label}}</label>
+                <label class="col-sm-4 control-label" for="{{company_info.company_name.id_for_label}}">{{company_info.company_name.label}}*</label>
                 <div class="col-sm-7">
                     {{ company_info.company_name }}
                     <p class="text-danger">{{ company_info.company_name.errors.as_text }}</p>
@@ -54,7 +58,7 @@
             <div class="form-group">
 
                 <!-- Text input-->
-                <label class="col-sm-4 control-label" for="{{company_info.social_credit_code.id_for_label}}">{{company_info.social_credit_code.label}}</label>
+                <label class="col-sm-4 control-label" for="{{company_info.social_credit_code.id_for_label}}">{{company_info.social_credit_code.label}}*</label>
                 <div class="col-sm-7">
                     {{ company_info.social_credit_code }}
                     <p class="help-block">请填写营业执照中18位统一信用代码 <span class="text-danger">{{ company_info.social_credit_code.errors.as_text }}</span></p>
@@ -63,7 +67,7 @@
             <div class="form-group">
 
                 <!-- Text input-->
-                <label class="col-sm-4 control-label" for="{{company_info.established_time.id_for_label}}">{{company_info.established_time.label}}</label>
+                <label class="col-sm-4 control-label" for="{{company_info.established_time.id_for_label}}">{{company_info.established_time.label}}*</label>
                 <div class="col-sm-7">
                     {{ company_info.established_time }}
                     <p class="help-block">注意填写正确的日期格式：如 2018/01/01 {{ company_info.established_time.errors.as_text }}</p>
@@ -73,7 +77,7 @@
             <div class="form-group">
 
                 <!-- Text input-->
-                <label class="col-sm-4 control-label" for="{{company_info.responsible_person.id_for_label}}">{{company_info.responsible_person.label}}</label>
+                <label class="col-sm-4 control-label" for="{{company_info.responsible_person.id_for_label}}">{{company_info.responsible_person.label}}*</label>
                 <div class="col-sm-7">
                     {{ company_info.responsible_person }}
                     <p class="help-block">{{ company_info.responsible_person.errors.as_text }}</p>
@@ -83,7 +87,7 @@
             <div class="form-group">
 
                 <!-- Text input-->
-                <label class="col-sm-4 control-label" for="{{company_info.phone.id_for_label}}">{{company_info.phone.label}}</label>
+                <label class="col-sm-4 control-label" for="{{company_info.phone.id_for_label}}">{{company_info.phone.label}}*</label>
                 <div class="col-sm-7">
                     {{ company_info.phone }}
                     <p class="text-danger">{{ company_info.phone.errors.as_text }}</p>
@@ -91,7 +95,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-4 control-label">性别：</label>
+                <label class="col-sm-4 control-label">性别*</label>
                 <div class="col-sm-7">
                     {% for radio in company_info.sex %}
                     <label class="radio-inline" for="{{ radio.id_for_label }}">
@@ -101,7 +105,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-4 control-label">年龄：</label>
+                <label class="col-sm-4 control-label">年龄*</label>
                 <div class="col-sm-7">
                     <!-- Inline Radios -->
                     {% for radio in company_info.age %}
@@ -111,8 +115,8 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="col-sm-4 control-label">文化程度：</label>
+            <div class="form-group required">
+                <label class="col-sm-4 control-label">文化程度*</label>
                 <div class="col-sm-7">
                     <!-- Inline Radios -->
                     {% for radio in company_info.degree_of_education %}
@@ -125,7 +129,7 @@
 
             <div class="form-group">
                 <!-- Text input-->
-                <label class="col-sm-4 control-label" for="{{company_info.political_status.id_for_label}}">{{company_info.political_status.label}}</label>
+                <label class="col-sm-4 control-label" for="{{company_info.political_status.id_for_label}}">{{company_info.political_status.label}}*</label>
                 <div class="col-sm-7">
                     {{ company_info.political_status }}
                     <p class="help-block">请输入以下3个中的一个：党员/群众/其他党派</p>
@@ -147,7 +151,7 @@
             <div class="form-group">
 
                 <!-- Text input-->
-                <label class="col-sm-4 control-label" for="{{company_info.company_registered_address.id_for_label}}">{{company_info.company_registered_address.label}}</label>
+                <label class="col-sm-4 control-label" for="{{company_info.company_registered_address.id_for_label}}">{{company_info.company_registered_address.label}}*</label>
                 <div class="col-sm-7">
                     {{ company_info.company_registered_address }}
                     <p class="help-block"></p>
@@ -174,10 +178,10 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group required">
 
                 <!-- Text input-->
-                <label class="col-sm-4 control-label" for="{{company_info.website_url.id_for_label}}">{{company_info.website_url.label}}</label>
+                <label class="col-sm-4 control-label" for="{{company_info.email_adress.id_for_label}}">{{company_info.email_adress.label}}*</label>
                 <div class="col-sm-7">
                     {{ company_info.email_adress }}
                     <p class="help-block"></p>

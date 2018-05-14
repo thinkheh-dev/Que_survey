@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Date    : 2018-04-19 15:20:15
 # @Author  : warlock921 (caoyu921@163.com)
@@ -61,9 +61,9 @@ class InfoPersonForm(forms.ModelForm):
     phone = forms.CharField(label="联系电话", max_length=11, error_messages={'required':'手机号不能为空'}, widget=forms.TextInput(attrs={'placeholder':"为方便联系，请您填写手机号。", 'class':"form-control"}))
     political_status = forms.CharField(label="政治面貌", error_messages={'required':'政治面貌不能为空'}, widget=forms.TextInput(attrs={'class':"form-control"}))
     company_registered_address = forms.CharField(label="企业注册地址", error_messages={'required':'企业注册地址不能为空'}, widget=forms.TextInput(attrs={'class':"form-control"}))
-    website_url = forms.URLField(label="企业网址", error_messages={'required':'企业网址不能为空'}, widget=forms.URLInput(attrs={'placeholder':"请输入网址全称：例如 http://www.thinkheh.cn", 'class':"form-control"}))
+    website_url = forms.URLField(required=False, label="企业网址", error_messages={'required':'企业网址不能为空'}, widget=forms.URLInput(attrs={'placeholder':"请输入网址全称：例如 http://www.thinkheh.cn", 'class':"form-control"}))
     email_adress = forms.EmailField(label="Email地址", error_messages={'required':'email地址不能为空'}, widget=forms.EmailInput(attrs={'class':"form-control"}))
-    company_profiles = forms.CharField(label="企业简介", widget=forms.Textarea(attrs={'class':"form-control",'rows':"3"}))
+    company_profiles = forms.CharField(required=False, label="企业简介", widget=forms.Textarea(attrs={'class':"form-control",'rows':"3"}))
 
     # 使用ModelForm时的内部类
     class Meta:
