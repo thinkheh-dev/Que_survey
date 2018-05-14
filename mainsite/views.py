@@ -185,7 +185,7 @@ def enterprise_need_2_action(request, bif_id):
             new_qcharform.save()
 
 
-        return HttpResponse('成功了！')
+        return render(request, "success_end.html")
 
     
 
