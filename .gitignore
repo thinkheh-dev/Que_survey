@@ -1,7 +1,9 @@
 # Byte-compiled / optimized / DLL files
+
 __pycache__/
 *.py[cod]
 *$py.class
+
 migrations
 
 # Windows:
@@ -13,3 +15,11 @@ Desktop.ini
 *.log
 local_settings.py
 db.sqlite3
+que_survey-uwsgi.ini
+uwsgi_params
+
+Que_survey/
+settings.py
+urls.py
+
+
