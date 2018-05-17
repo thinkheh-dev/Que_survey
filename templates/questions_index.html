@@ -18,10 +18,10 @@
   <body class="index_ad">
 
       <div class="show_que_point">
-      <p>{{nearly_que.title}}</p>
+      <p><img src="{% static 'images/SVG/psp_logo.svg' %}" alt="" class="psp_logo">{{nearly_que.title}}</p>
       <img class="ad_point" src="{% static 'images/SVG/AD_point.svg' %}" alt="为中小企业解决问题促进我州经济跨越">
       <p>您的支持就是我们服务的目标</p><p>积极真实的填写</p><p>将是你获得最大支持的保障</p>
-    
+
       <!-- 调查问卷说明 -->
       <div class="que_description">
           {{nearly_que.questionnaire_explain | safe}}
