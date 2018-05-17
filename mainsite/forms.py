@@ -59,10 +59,10 @@ class InfoPersonForm(forms.ModelForm):
     age = forms.ChoiceField(label="年龄", error_messages={'required':'年龄不能为空'}, choices=AGE_CHOICES,widget=forms.RadioSelect(attrs={'class':"radio-inline"}))
     degree_of_education = forms.ChoiceField(label="文化程度", error_messages={'required':'文化程度不能为空'}, choices=EDUCATION_CHOICES,widget=forms.RadioSelect(attrs={'class':"radio-inline "}))
     phone = forms.CharField(label="联系电话", max_length=11, error_messages={'required':'手机号不能为空'}, widget=forms.TextInput(attrs={'placeholder':"为方便联系，请您填写手机号。", 'class':"form-control"}))
-    political_status = forms.CharField(label="政治面貌", error_messages={'required':'政治面貌不能为空'}, widget=forms.TextInput(attrs={'class':"form-control"}))
-    company_registered_address = forms.CharField(label="企业注册地址", error_messages={'required':'企业注册地址不能为空'}, widget=forms.TextInput(attrs={'class':"form-control"}))
+    political_status = forms.CharField(required=False, label="政治面貌", error_messages={'required':'政治面貌不能为空'}, widget=forms.TextInput(attrs={'class':"form-control"}))
+    company_registered_address = forms.CharField(required=False, label="企业注册地址", error_messages={'required':'企业注册地址不能为空'}, widget=forms.TextInput(attrs={'class':"form-control"}))
     website_url = forms.URLField(required=False, label="企业网址", error_messages={'required':'企业网址不能为空'}, widget=forms.URLInput(attrs={'placeholder':"请输入网址全称：例如 http://www.thinkheh.cn", 'class':"form-control"}))
-    email_adress = forms.EmailField(label="Email地址", error_messages={'required':'email地址不能为空'}, widget=forms.EmailInput(attrs={'class':"form-control"}))
+    email_adress = forms.EmailField(required=False, label="Email地址", error_messages={'required':'email地址不能为空'}, widget=forms.EmailInput(attrs={'class':"form-control"}))
     company_profiles = forms.CharField(required=False, label="企业简介", widget=forms.Textarea(attrs={'class':"form-control",'rows':"3"}))
 
     # 使用ModelForm时的内部类
@@ -152,16 +152,16 @@ class CompanyBasicInfoForm(forms.ModelForm):
     registered_fund = forms.CharField(max_length=10, error_messages={'required':'注册资金不能为空'}, 
                                       widget=forms.TextInput(attrs={'class':"form-control"}))
 
-    annual_revenue = forms.CharField(max_length=10, error_messages={'required':'企业年营业收入不能为空'}, 
+    annual_revenue = forms.CharField(required=False, max_length=10, error_messages={'required':'企业年营业收入不能为空'}, 
                                      widget=forms.TextInput(attrs={'class':"form-control"}))
 
     current_number_of_employees = forms.CharField(max_length=5, error_messages={'required':'现从业人数不能为空'}, 
                                                   widget=forms.TextInput(attrs={'class':"form-control"}))
 
-    college_degree_or_above = forms.CharField(max_length=5, error_messages={'required':'大专及以上学历人数不能为空'}, 
+    college_degree_or_above = forms.CharField(required=False, max_length=5, error_messages={'required':'大专及以上学历人数不能为空'}, 
                                               widget=forms.TextInput(attrs={'class':"form-control"}))
 
-    intermediate_and_above_titles = forms.CharField(max_length=5, error_messages={'required':'中级及以上职称人数不能为空'}, 
+    intermediate_and_above_titles = forms.CharField(required=False, max_length=5, error_messages={'required':'中级及以上职称人数不能为空'}, 
                                                     widget=forms.TextInput(attrs={'class':"form-control"}))
 
      # 使用ModelForm时的内部类
